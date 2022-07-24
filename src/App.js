@@ -34,6 +34,15 @@ handleSubmit(event){
   event.preventDefault()
 }
 
+goPrevious(search){
+  this.setState({
+    first: null,
+    after: null,
+    last: PER_PAGE,
+    before: search.pageInfo.startCursor
+  })
+}
+
 goNext(search){
   this.setState({
     first: PER_PAGE,
@@ -81,6 +90,16 @@ goNext(search){
                     }
                   </ul>
 
+                  {
+                    search.pageInfo.hasPreviousPage === true ?
+                    <button
+                      onClick={this.goPrevious.bind(this, search)}
+                    >
+                      Previous
+                    </button>
+                    :
+                    null
+                  }
                   {
                   search.pageInfo.hasNextPage === true ?
                     <button
